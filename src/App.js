@@ -2,16 +2,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import NavBar from "./components/NavBar"
-import {Container, Row} from "react-bootstrap"
+import {Col, Container, Row} from "react-bootstrap"
 import WarningSign from './components/WarningSign';
+import MyBadge from './components/MyBadge';
+import BooksList from './components/BooksList';
 
 function App() {
   return (
     <Container>
           <Row>
             <NavBar />
-            <WarningSign text="WARNING"/>
-
+            <WarningSign text="WARNING"/>        
+            <MyBadge text="This is MyBadge" color="red"/>
+            <BooksList />
           </Row>
     </Container>
 
