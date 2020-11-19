@@ -6,6 +6,7 @@ import {Col, Container, Row} from "react-bootstrap"
 import WarningSign from './components/WarningSign';
 import MyBadge from './components/MyBadge';
 import BooksList from './components/BooksList';
+import CommentForm from './components/CommentForm';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <NavBar />
             <WarningSign text="WARNING"/>        
             <MyBadge text="This is MyBadge" color="red"/>
+            <CommentForm />
             <BooksList />
           </Row>
     </Container>

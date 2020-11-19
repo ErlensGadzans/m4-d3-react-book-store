@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Jumbotron,
   Button,
   Container,
   Row,
@@ -39,7 +38,7 @@ class Home extends React.Component {
 
   handleDropdownChange = (category) => {
     this.setState({
-      books: books[category].slice(0, 12),
+      books: books[category].slice(0, 8),
       categorySelected: category,
     });
   };
@@ -92,13 +91,14 @@ class Home extends React.Component {
             {this.state.books ? (
               this.state.books.map((book) => {
                 return (
-                  <Col xs={6} key={book.asin}>
+                  <Col xs={3} key={book.asin}>
                     <Card style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src={book.img} />
+                      <Card.Img variant="top" src={book.img} 
+                      onClick={() => this.props.Component.submitComments}/>
                       <Card.Body>
                         <Card.Title>{book.title}</Card.Title>
                         <Card.Text>€{book.price}</Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
+                        <Button variant="primary" >Leave the comment</Button>
                       </Card.Body>
                     </Card>
                   </Col>
