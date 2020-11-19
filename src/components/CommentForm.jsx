@@ -7,7 +7,7 @@ class CommentForm extends React.Component {
         comments: {
             comment: '',
             rate: '1',
-            elementId: '',
+            elementId: this.props.bookId,
         },
         errMessage: '',
         loading: false
@@ -16,7 +16,7 @@ class CommentForm extends React.Component {
     updateCommentsField = (e) => {
         console.log(this.state)
         let comments = { ...this.state.comments } // creating a copy of the current state
-        let currentId = e.currentTarget.id // 'name', 'phone', etc.
+      //  let currentId = e.currentTarget.id // 'name', 'phone', etc.
 
        
         //comments['comment'] --> comments.name = 'S'
