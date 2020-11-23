@@ -4,26 +4,23 @@ import { Alert, Button, Col, Container, Form, Row, Spinner } from 'react-bootstr
 
 class CommentForm extends React.Component {
     state = {
-        comments: {
-            comment: '',
+        comment: {
+            comment: "",
             rate: 1,
-            elementId: this.props.bookId,
+            elementId: "",
         },
         errMessage: '',
         // loading: false
     }
 
-    updateCommentsField = (e) => {
-       // console.log(this.state)
-        let comments = { ...this.state.comments } // creating a copy of the current state
-        let currentId = e.currentTarget.id // 'name', 'phone', etc.
-        comments[currentId] = e.currentTarget.value;
-        this.setState({ comments: comments });
+    updateCommentField = (e) => {
+    
+        this.setState({ comment: { ...this.state.comment,[e.target.name]:e.target.value } });
       };
        
 
 
-    submitComments = async (e) => {
+    submitComment = async (e) => {
         e.preventDefault();
         // this.setState({ loading: true })
         // console.log(this.state)
@@ -31,76 +28,60 @@ class CommentForm extends React.Component {
             let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/',
                 {
                     method: 'POST',
-                    body: JSON.stringify(this.state.comments),
+                    body: JSON.stringify({...this.state.comment,elementId:this.props.book.asin}),
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NjkwNjk4MzViMDAwMTc1ODRlZTgiLCJpYXQiOjE2MDU3ODk5NTksImV4cCI6MTYwNjk5OTU1OX0.HLrFKNODTcsXxCRVPj6tDmxMbaMt0RkSF7LQLsmuMhw",
+                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmI2NjkwNjk4MzViMDAwMTc1ODRlZTgiLCJpYXQiOjE2MDYxNDA5NDEsImV4cCI6MTYwNzM1MDU0MX0.IuDgLHaiE7BYcl4ARCAKjytLKhnDhRWxQB3RxOpPqSM",
                     }
                 })
             if (response.ok) {
                 alert('Comments saved!')
                 this.setState({
-                    comments: {
-                        comment: '',
+                    comment: {
+                        comment: "",
                         rate: 1,
-                        elementId: this.props.bookId,
+                        elementId: "",
                     },
                     // errMessage: '',
                     // loading: false,
                 })
+                this.props.fetchComments()
             } else {
                 console.log('an error occurred')
-                let error = await response.json()
-                this.setState({
-                    errMessage: error.message,
-                    // loading: false,
-                })
+                // let error = await response.json()
+                // this.setState({
+                //     errMessage: error.message,
+                //     // loading: false,
+                // })
             }
         } catch (e) {
             console.log(e) // Error
-            this.setState({
-                errMessage: e.message,
-                // loading: false,
-            })
+            // this.setState({
+            //     errMessage: e.message,
+            //     // loading: false,
+            // })
         }
     }
 
     render() {
         return (
             
-                // {/* {
-                //     this.state.errMessage && (
-                //         <Alert variant="danger">
-                //             We encountered a problem with your comment
-                //             {this.state.errMessage}
-                //         </Alert>
-                //     )
-                // } */}
-                // {/* {
-                //     this.state.loading && (
-                //         <div className="d-flex justify-content-center my-5">
-                //             Commenting your book, please wait
-                //             <div className="ml-2">
-                //                 <Spinner animation="border" variant="success" />
-                //             </div>
-                //         </div>
-                //     )
-                // } */}
+               
                 <Container id="AddComment">
                       <h5>Add Comment:</h5>
-                <Form className="w-100 mb-5" onSubmit={this.submitComments}>
+                <Form className="w-100 mb-5" onSubmit={this.submitComment}>
                     <Row>
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label htmlFor="comment">Comment:</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    as="textarea"
                                     name="comment"
-                                    id="comment"
+                                     
                                     placeholder="Please type your comment here"
-                                    value={this.state.comments.comments}
-                                    onChange={this.updateCommentsField}
-                                    required
+                                    value={this.state.comment.comment}
+                                    onChange={this.updateCommentField}
+                                    
                                 />
                             </Form.Group>
                         </Col>
@@ -115,9 +96,9 @@ class CommentForm extends React.Component {
                                 <Form.Control
                                     as="select"
                                     name="rate"
-                                    id="rate"
-                                    value={this.state.comments.rate}
-                                    onChange={this.updateCommentsField}
+                                   
+                                    value={this.state.comment.rate}
+                                    onChange={this.updateCommentField}
                                 >
                                     <option>1</option>
                                     <option>2</option>
@@ -131,21 +112,7 @@ class CommentForm extends React.Component {
                     
                       
                     </Row>
-                    {/* <Row>
-                        <Col md={12}>
-                            <Form.Group>
-                                <Form.Label htmlFor="elementId">Special requests</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="elementId"
-                                    id="elementId"
-                                    placeholder="Enter element Id"
-                                    value={this.state.comments.elementId}
-                                    onChange={this.updateCommentsField}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row> */}
+                  
                     <Button type="submit">Submit</Button>
                 </Form>
                 </Container>

@@ -16,7 +16,7 @@ import horror from "../Data/horror.json";
 import history from "../Data/history.json";
 import romance from "../Data/romance.json";
 import scifi from "../Data/scifi.json";
-
+import Comments from "./Comments"
 let bookCategories = ["fantasy", "horror", "history", "romance", "scifi"];
 let books = {
   fantasy,
@@ -33,6 +33,7 @@ class Home extends React.Component {
     this.state = {
       books: books.fantasy,
       categorySelected: "fantasy",
+      book:false
     };
   }
 
@@ -57,10 +58,10 @@ class Home extends React.Component {
   };
 
   render() {
+    const {book} = this.state
     return (
       <div>
-    
-        <Container>
+        <Container fluid>
           <InputGroup>
             <DropdownButton
               as={InputGroup.Prepend}
@@ -88,25 +89,39 @@ class Home extends React.Component {
             />
           </InputGroup>
           <Row>
-            {this.state.books ? (
-              this.state.books.map((book) => {
-                return (
-                  <Col xs={12} key={book.asin}>
-                    <Card style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src={book.img} 
-                      onClick={() => this.props.Component.submitComments}/>
-                      <Card.Body>
-                        <Card.Title>{book.title}</Card.Title>
-                        <Card.Text>€{book.price}</Card.Text>
-                        <Button variant="primary" >Leave the comment</Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                );
-              })
-            ) : (
-              <div> nothing here </div>
-            )}
+            <Col>
+              <Row>
+                {this.state.books ? (
+                  this.state.books.map((book) => {
+                    return (
+                      <Col onClick={()=>this.setState({book})} xs={12} key={book.asin}>
+                        <Card style={{ width: "18rem" }}>
+                          <Card.Img
+                            variant="top"
+                            src={book.img}
+                        
+                          />
+                          <Card.Body>
+                            <Card.Title>{book.title}</Card.Title>
+                            <Card.Text>€{book.price}</Card.Text>
+                            <Button
+                              onclick="myFunction(submitComment)"
+                              variant="primary"
+                            >
+                              Leave the comment
+                            </Button>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    );
+                  })
+                ) : (
+                  <div> nothing here </div>
+                )}
+              </Row>
+            </Col>
+            {book?     <Col><Comments book={book} /></Col>:    <div> nothing here </div>}
+           
           </Row>
         </Container>
       </div>
