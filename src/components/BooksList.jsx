@@ -91,7 +91,7 @@ class Home extends React.Component {
             {this.state.books ? (
               this.state.books.map((book) => {
                 return (
-                  <Col xs={3} key={book.asin}>
+                  <Col xs={12} key={book.asin}>
                     <Card style={{ width: "18rem" }}>
                       <Card.Img variant="top" src={book.img} 
                       onClick={() => this.props.Component.submitComments}/>
