@@ -1,15 +1,16 @@
 import React from "react";
-
+import CommentForm from "./CommentForm";
 import {
   Alert,
   Button,
   Col,
   Container,
   Form,
+  ListGroup,
   Row,
   Spinner,
 } from "react-bootstrap";
-import CommentForm from "./CommentForm";
+
 class Comment extends React.Component {
   state = {
     comments: [],
@@ -44,30 +45,28 @@ class Comment extends React.Component {
         });
       } else {
         console.log("an error occurred");
-        // let error = await response.json()
-        // this.setState({
-        //     errMessage: error.message,
-        //     // loading: false,
-        // })
+   
       }
     } catch (e) {
-      console.log(e); // Error
-      // this.setState({
-      //     errMessage: e.message,
-      //     // loading: false,
-      // })
+      console.log(e); 
     }
   };
 
   render() {
     const { comments } = this.state;
     return (
-      <div>
-        <CommentForm 
-        fetchComments={this.fetchComments}
-        book={this.props.book} />
-        {JSON.stringify(comments)}
-      </div>
+      <div className="mb-5">
+      <h2>Comments</h2>
+      <CommentForm fetchComments={this.fetchBooks} book={this.props.book} />
+      {this.state.comments.map((comments, index) => (
+          <ListGroup key={index}>
+              <ListGroup.Item>
+              <b>Name:</b> {comments.author}, <b>Comment:</b> {comments.comment}, <b>Rating:</b> {comments.rate}
+              </ListGroup.Item>
+          </ListGroup>
+      ))  }
+  </div>
+
     );
   }
 }

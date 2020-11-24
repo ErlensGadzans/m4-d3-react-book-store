@@ -15,7 +15,7 @@ function App() {
             <NavBar />
             <WarningSign text="WARNING"/>        
             <MyBadge text="This is MyBadge" color="red"/>
-            <CommentForm />
+            {/* <CommentForm /> */}
             <BooksList />
           </Row>
     </Container>

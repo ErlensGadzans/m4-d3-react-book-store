@@ -51,9 +51,9 @@ class Home extends React.Component {
       let filteredBooks = books[category].filter((book) =>
         book.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      this.setState({ books: filteredBooks.slice(0, 12) });
+      this.setState({ books: filteredBooks.slice(0, 4) });
     } else {
-      this.setState({ books: books[category].slice(0, 12) });
+      this.setState({ books: books[category].slice(0, 4) });
     }
   };
 
@@ -88,14 +88,15 @@ class Home extends React.Component {
               onChange={(e) => this.handleSearchQuery(e.target.value)}
             />
           </InputGroup>
-          <Row>
-            <Col>
+          <Container fluid>
+          <Row className={'row-cols-sm-1 row-cols-lg-2'}>
+            <Col >
               <Row>
                 {this.state.books ? (
                   this.state.books.map((book) => {
                     return (
                       <Col onClick={()=>this.setState({book})} xs={12} key={book.asin}>
-                        <Card style={{ width: "18rem" }}>
+                        <Card style={{ width: "20rem" }}>
                           <Card.Img
                             variant="top"
                             src={book.img}
@@ -120,9 +121,11 @@ class Home extends React.Component {
                 )}
               </Row>
             </Col>
-            {book?     <Col><Comments book={book} /></Col>:    <div> nothing here </div>}
-           
+            <Col>
+            {book ? <Comments book={book} />:<p>Click  any book to see  comments</p>}
+            </Col>
           </Row>
+          </Container>
         </Container>
       </div>
     );

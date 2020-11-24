@@ -22,8 +22,7 @@ class CommentForm extends React.Component {
 
     submitComment = async (e) => {
         e.preventDefault();
-        // this.setState({ loading: true })
-        // console.log(this.state)
+      
         try {
             let response = await fetch('https://striveschool-api.herokuapp.com/api/comments/',
                 {
@@ -42,24 +41,16 @@ class CommentForm extends React.Component {
                         rate: 1,
                         elementId: "",
                     },
-                    // errMessage: '',
-                    // loading: false,
+                 
                 })
                 this.props.fetchComments()
             } else {
                 console.log('an error occurred')
-                // let error = await response.json()
-                // this.setState({
-                //     errMessage: error.message,
-                //     // loading: false,
-                // })
+                
             }
         } catch (e) {
-            console.log(e) // Error
-            // this.setState({
-            //     errMessage: e.message,
-            //     // loading: false,
-            // })
+            console.log(e) 
+      
         }
     }
 
@@ -77,11 +68,10 @@ class CommentForm extends React.Component {
                                 <Form.Control
                                     as="textarea"
                                     name="comment"
-                                     
                                     placeholder="Please type your comment here"
                                     value={this.state.comment.comment}
                                     onChange={this.updateCommentField}
-                                    
+                                    required
                                 />
                             </Form.Group>
                         </Col>
