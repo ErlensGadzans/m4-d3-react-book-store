@@ -16,7 +16,7 @@ import horror from "../Data/horror.json";
 import history from "../Data/history.json";
 import romance from "../Data/romance.json";
 import scifi from "../Data/scifi.json";
-import Comments from "./Comments"
+import Comments from "./Comments";
 let bookCategories = ["fantasy", "horror", "history", "romance", "scifi"];
 let books = {
   fantasy,
@@ -33,7 +33,7 @@ class Home extends React.Component {
     this.state = {
       books: books.fantasy,
       categorySelected: "fantasy",
-      book:false
+      book: false,
     };
   }
 
@@ -58,7 +58,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const {book} = this.state
+    const { book } = this.state;
     return (
       <div>
         <Container fluid>
@@ -89,42 +89,47 @@ class Home extends React.Component {
             />
           </InputGroup>
           <Container fluid>
-          <Row className={'row-cols-sm-1 row-cols-lg-2'}>
-            <Col >
-              <Row>
-                {this.state.books ? (
-                  this.state.books.map((book) => {
-                    return (
-                      <Col onClick={()=>this.setState({book})} xs={12} key={book.asin}>
-                        <Card style={{ width: "20rem" }}>
-                          <Card.Img
-                            variant="top"
-                            src={book.img}
-                        
-                          />
-                          <Card.Body>
-                            <Card.Title>{book.title}</Card.Title>
-                            <Card.Text>€{book.price}</Card.Text>
-                            <Button
-                              onclick="myFunction(submitComment)"
-                              variant="primary"
-                            >
-                              Leave the comment
-                            </Button>
-                          </Card.Body>
-                        </Card>
-                      </Col>
-                    );
-                  })
-                ) : (
-                  <div> nothing here </div>
-                )}
-              </Row>
-            </Col>
-            <Col>
-            {book ? <Comments book={book} />:<p>Click  any book to see comments</p>}
-            </Col>
-          </Row>
+            <Row>
+              {this.state.books ? (
+                this.state.books.map((eachBook) => {
+                  return (
+                    <Col
+                      onClick={() => this.setState({ book:eachBook })}
+                      xs={12}
+                      key={eachBook.asin}
+                    >
+                      <Row className={"row-cols-sm-1 row-cols-lg-2"}>
+                        <Col>
+                         
+                          <Card style={{ width: "20rem" }}>
+                            <Card.Img variant="top" src={eachBook.img} />
+                            <Card.Body>
+                              <Card.Title>{eachBook.title}</Card.Title>
+                              <Card.Text>€{eachBook.price}</Card.Text>
+                              <Button
+                                onclick="myFunction(submitComment)"
+                                variant="primary"
+                              >
+                                Leave the comment
+                              </Button>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                        <Col>
+                          {book.asin===eachBook.asin ? (
+                            <Comments book={eachBook} />
+                          ) : (
+                            <p>Click any book to see comments</p>
+                          )}
+                        </Col>
+                      </Row>
+                    </Col>
+                  );
+                })
+              ) : (
+                <div> nothing here </div>
+              )}
+            </Row>
           </Container>
         </Container>
       </div>
