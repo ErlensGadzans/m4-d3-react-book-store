@@ -64,7 +64,7 @@ class CommentForm extends React.Component {
                     <Row>
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label htmlFor="comment">Comment:</Form.Label>
+                                <Form.Label  htmlFor="comment">Comment:</Form.Label>
                                 <Form.Control
                                     as="textarea"
                                     name="comment"

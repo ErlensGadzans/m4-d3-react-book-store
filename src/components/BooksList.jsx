@@ -122,7 +122,7 @@ class Home extends React.Component {
               </Row>
             </Col>
             <Col>
-            {book ? <Comments book={book} />:<p>Click  any book to see  comments</p>}
+            {book ? <Comments book={book} />:<p>Click  any book to see comments</p>}
             </Col>
           </Row>
           </Container>

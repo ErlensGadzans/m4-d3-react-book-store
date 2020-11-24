@@ -56,7 +56,7 @@ class Comment extends React.Component {
     const { comments } = this.state;
     return (
       <div className="mb-5">
-      <h2>Comments</h2>
+      
       <CommentForm fetchComments={this.fetchBooks} book={this.props.book} />
       {this.state.comments.map((comments, index) => (
           <ListGroup key={index}>
