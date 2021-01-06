@@ -94,13 +94,12 @@ class Home extends React.Component {
                 this.state.books.map((eachBook) => {
                   return (
                     <Col
-                      onClick={() => this.setState({ book:eachBook })}
+                      onClick={() => this.setState({ book: eachBook })}
                       xs={12}
                       key={eachBook.asin}
                     >
                       <Row className={"row-cols-sm-1 row-cols-lg-2"}>
                         <Col>
-                         
                           <Card style={{ width: "20rem" }}>
                             <Card.Img variant="top" src={eachBook.img} />
                             <Card.Body>
@@ -116,7 +115,7 @@ class Home extends React.Component {
                           </Card>
                         </Col>
                         <Col>
-                          {book.asin===eachBook.asin ? (
+                          {book.asin === eachBook.asin ? (
                             <Comments book={eachBook} />
                           ) : (
                             <p>Click any book to see comments</p>
